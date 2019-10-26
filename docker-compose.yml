@@ -1,0 +1,32 @@
+version: '3'
+services:
+  reactapp:
+    image: 'react-docker-app:latest'
+    restart: always
+    ports:
+      - "8081:80"
+    volumes:
+      - './app/:/data/react-docker-app/'
+    links:
+      - mongo:latest
+    networks:
+      - reactappnetwork
+  mongo:
+    image: 'mongo:latest'
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGODB_ROOT_PASSWORD=test
+    #command: /bin/sh -c "mongo admin --eval 'db.createUser({user:"admin",pwd:"test",roles:[{role:"userAdminAnyDatabase",db:"admin"},"readWriteAnyDatabase"]})'"
+    volumes:
+      - 'db-data:/data/db'
+      - 'mongo-config:/data/configdb'
+    networks:
+      - reactappnetwork
+volumes:
+  db-data:
+  mongo-config:
+  react-docker-app:
+networks:
+    reactappnetwork:
+        driver: bridge
