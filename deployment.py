@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# A script to clone the app source code, builds the containers
-# Before running the script create a directory for the project and cd into it. From there run deployment.py
+# A script to clone the app source code, build the containers, and test if the app is running
+# Before running the script create a directory for the project and cd into it. From there run python deployment.py
 
 import subprocess
 import os
@@ -13,7 +13,7 @@ except:
 
 print("Extracting the archive file\n")
 p = subprocess.Popen("tar -xf app.tar.xz", cwd="./react-docker-app", shell=True)
-p.communicate()                      # aici mi-a luat ceva timp pana sa folosesc communicate; nu intelegeam de ce nu merge cd ./react-docker-app/app. Dar fisierul apt.tar.xz inca se dezarhiva si eu nu vedeam output-ul in consola :)
+p.communicate()                      
 os.chdir('react-docker-app/app')
 
 print("Building the docker image for the react-app\n")
